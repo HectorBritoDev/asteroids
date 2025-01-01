@@ -22,9 +22,9 @@ def main():
 
     Player.containers = (updatable, drawable)
     Asteroid.containers = (updatable, drawable, asteroids)
-    AsteroidField.containers = (updatable)
+    AsteroidField.containers = updatable
 
-    Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     AsteroidField()
 
     while True:
@@ -37,6 +37,11 @@ def main():
 
         for entity in updatable:
             entity.update(dt)
+
+        for entity in asteroids:
+            if entity.is_colliding(player):
+                print("Game Over")
+                return
 
         for entity in drawable:
             entity.draw(screen)
